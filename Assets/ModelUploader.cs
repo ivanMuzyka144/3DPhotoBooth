@@ -5,36 +5,22 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
-public class ModelUploader : MonoBehaviour
-{
-    public Material defaultMaterial;
-    public GameObject parent;
-    public GameObject sizeCube;
-    public GameObject egg;
+public class ModelUploader
+{ 
+    private static string[] possibleExtensions = { ".obj", ".FBX" };
 
-    private string[] possibleExtensions = { ".obj", ".FBX" };
-    void Start()
+    public static List<GameObject> UploadModels(string directoryPath, GameObject parentOfmodels, Material defaultMaterial)
     {
-        //Mesh myMesh = (Mesh)Resources.Load("Assets/Input/rabbir", typeof(Mesh));
-
-        /*
-        Object object = AssetDatabase.LoadAssetAtPath("Assets/Input/rabbir.obj", typeof(Object));
-        Mesh t = (Mesh)AssetDatabase.LoadAssetAtPath("Assets/Input/rabbir.obj", typeof(Mesh));
-        GameObject mygameobject = new GameObject();
-        mygameobject.AddComponent<MeshFilter>();
-        mygameobject.AddComponent<MeshRenderer>();
-        mygameobject.GetComponent<MeshFilter>().mesh = t;
-        mygameobject.GetComponent<MeshRenderer>().material = material;
-        */
+        
         List<GameObject> listOfModels = new List<GameObject>();
-        DirectoryInfo info = new DirectoryInfo("Assets/Input/");
+        DirectoryInfo info = new DirectoryInfo(directoryPath);
         FileInfo[] fileInfo = info.GetFiles();
         foreach (FileInfo file in fileInfo) 
         {
             if (possibleExtensions.Contains(file.Extension))
             {
-                var go = AssetDatabase.LoadAssetAtPath("Assets/Input/" + file.Name, typeof(GameObject));
-                GameObject newObj = GameObject.Instantiate(go as GameObject, parent.transform);
+                var go = AssetDatabase.LoadAssetAtPath(directoryPath + file.Name, typeof(GameObject));
+                GameObject newObj = GameObject.Instantiate(go as GameObject, parentOfmodels.transform);
                 listOfModels.Add(newObj);
                 for (int i = 0; i < newObj.transform.childCount; i++)
                 {
@@ -43,14 +29,6 @@ public class ModelUploader : MonoBehaviour
                 }
             }
         }
-        
+        return listOfModels;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
 }
