@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ModelObject : MonoBehaviour
 {
-    private float moveSpeed=1.5f;
-    private float alphaSpeed = 1.5f;
+    private float moveSpeed=2f;
+    private float alphaSpeed = 2f;
     private float currentAlpha = 0;
     public void SetCurrentColor(Color color)
     {
