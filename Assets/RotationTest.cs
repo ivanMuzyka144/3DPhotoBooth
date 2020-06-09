@@ -8,9 +8,6 @@ public class RotationTest : MonoBehaviour
     public Slider sliderX;
     public Slider sliderY;
     public Slider sliderZ;
-    public InputField inputFieldX;
-    public InputField inputFieldY;
-    public InputField inputFieldZ;
     private GameObject currentModel;
 
     private float rotationSpeed = 7;
@@ -57,5 +54,7 @@ public class RotationTest : MonoBehaviour
                 currentModel.transform.rotation = Quaternion.Lerp(currentModel.transform.rotation, QT, rotationSpeed * Time.deltaTime);
             }
         }
+        
+
     }
 }

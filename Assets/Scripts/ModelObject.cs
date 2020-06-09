@@ -8,7 +8,7 @@ public class ModelObject : MonoBehaviour
     private float alphaSpeed = 2f;
     private float currentAlpha = 0;
 
-    private bool canAnimate;
+    public bool isAnimating;
     private bool isHiding;
     private Transform targerPoint;
     private float targetAlpha;
@@ -23,7 +23,7 @@ public class ModelObject : MonoBehaviour
         isHiding = true;
         targerPoint = point;
         targetAlpha = 0;
-        canAnimate = true;
+        isAnimating = true;
     }
 
     public void ShowModelTo(Transform point)
@@ -31,14 +31,14 @@ public class ModelObject : MonoBehaviour
         isHiding = false;
         targerPoint = point;
         targetAlpha = 1;
-        canAnimate = true;
+        isAnimating = true;
     }
     
     private void Update()
     {
-        if (canAnimate)
+        if (isAnimating)
         {
-            if (Vector3.Distance(transform.position, targerPoint.position) > 0.15f || Mathf.Abs(currentAlpha - targetAlpha) > 0.1f)
+            if (Vector3.Distance(transform.position, targerPoint.position) > 0.1f || Mathf.Abs(currentAlpha - targetAlpha) > 0.1f)
             {
                 if (currentAlpha > targetAlpha)
                 {
@@ -60,7 +60,7 @@ public class ModelObject : MonoBehaviour
                 {
                     modelManager.buttons.SetActive(true);
                 }
-                canAnimate = false;
+                isAnimating = false;
             }
         }
     }

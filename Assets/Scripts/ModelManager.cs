@@ -6,6 +6,7 @@ public class ModelManager : MonoBehaviour
     public static ModelManager Instance { get; private set; }
 
     public RotationTest rotationTester;
+    public Position positionTester;
     public Transform parentOfmodels;
     public Material defaultMaterial;
 
@@ -32,7 +33,8 @@ public class ModelManager : MonoBehaviour
             ScreenshotUploader.ClearFolder(outputDirectoryPath);
         currentIndex = 0;
         models[currentIndex].ShowModelTo(centerPoint);
-        rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+        //rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+        //positionTester.SetCurrentModel(models[currentIndex].gameObject);
     }
 
     public void ShowNext()
@@ -43,7 +45,8 @@ public class ModelManager : MonoBehaviour
             models[currentIndex].HideModelTo(leftPoint);
             currentIndex++;
             models[currentIndex].ShowModelTo(centerPoint);
-            rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+           // rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+           // positionTester.SetCurrentModel(models[currentIndex].gameObject);
         }
     }
 
@@ -55,7 +58,8 @@ public class ModelManager : MonoBehaviour
             models[currentIndex].HideModelTo(rightPoint);
             currentIndex--;
             models[currentIndex].ShowModelTo(centerPoint);
-            rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+          //  rotationTester.SetCurrentModel(models[currentIndex].gameObject);
+         //   positionTester.SetCurrentModel(models[currentIndex].gameObject);
         }
     }
 
