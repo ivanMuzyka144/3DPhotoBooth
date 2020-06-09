@@ -4,40 +4,62 @@ using UnityEngine;
 
 public class ModelObject : MonoBehaviour
 {
-    private float moveSpeed=2f;
+    private float moveSpeed=3f;
     private float alphaSpeed = 2f;
     private float currentAlpha = 0;
-    public void SetCurrentColor(Color color)
+
+    private bool canAnimate;
+    private bool isHiding;
+    private Transform targerPoint;
+    private float targetAlpha;
+    private ModelManager modelManager;
+    private void Start()
     {
-       // currentColor = currentColor;
+        modelManager = ModelManager.Instance;
     }
+   
     public void HideModelTo(Transform point)
     {
-        StartCoroutine(MoveCoroutine(point,0));
+        isHiding = true;
+        targerPoint = point;
+        targetAlpha = 0;
+        canAnimate = true;
     }
 
     public void ShowModelTo(Transform point)
     {
-        StartCoroutine(MoveCoroutine(point, 1));
+        isHiding = false;
+        targerPoint = point;
+        targetAlpha = 1;
+        canAnimate = true;
     }
-    IEnumerator MoveCoroutine(Transform targerPoint, float targetAlpha)
+    
+    private void Update()
     {
-        while (Vector3.Distance(transform.position, targerPoint.position)>0.1f
-               || Mathf.Abs(currentAlpha - targetAlpha) > 0.01f)
+        if (canAnimate)
         {
-            if(currentAlpha> targetAlpha)
+            if (Vector3.Distance(transform.position, targerPoint.position) > 0.1f || Mathf.Abs(currentAlpha - targetAlpha) > 0.01f)
             {
-                currentAlpha -= alphaSpeed * Time.deltaTime;
+                if (currentAlpha > targetAlpha)
+                {
+                    currentAlpha -= alphaSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    currentAlpha += alphaSpeed * Time.deltaTime;
+                }
+                SetAlphaToChildren(currentAlpha);
+                transform.position = Vector3.Lerp(transform.position, targerPoint.position, moveSpeed * Time.deltaTime);
             }
             else
             {
-                currentAlpha += alphaSpeed * Time.deltaTime;
+                if (isHiding)
+                {
+                    ModelManager.Instance.buttons.SetActive(true);
+                }
+                canAnimate = false;
             }
-            SetAlphaToChildren(currentAlpha);
-            transform.position = Vector3.Lerp(transform.position, targerPoint.position, moveSpeed * Time.deltaTime);
-            yield return null;
         }
-        //yield return new WaitForSeconds(1f);
     }
 
     private void SetAlphaToChildren(float alphaValue)
