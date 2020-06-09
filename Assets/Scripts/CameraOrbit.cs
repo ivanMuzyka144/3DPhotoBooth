@@ -28,7 +28,7 @@ public class CameraOrbit : MonoBehaviour
 
 
     void LateUpdate()
-    {
+    {/*
         if (Input.GetMouseButtonDown(0))
         {
             isMousePressed = true;
@@ -36,7 +36,7 @@ public class CameraOrbit : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             isMousePressed = false;
-        }
+        }*/
         if (isMousePressed)
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
