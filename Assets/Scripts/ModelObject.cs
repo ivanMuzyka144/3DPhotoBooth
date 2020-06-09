@@ -53,6 +53,9 @@ public class ModelObject : MonoBehaviour
             }
             else
             {
+                transform.position = targerPoint.position;
+                SetAlphaToChildren(targetAlpha);
+
                 if (!isHiding)
                 {
                     modelManager.buttons.SetActive(true);

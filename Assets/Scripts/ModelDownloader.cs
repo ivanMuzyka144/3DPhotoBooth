@@ -28,7 +28,7 @@ public class ModelDownloader
                 {
                     GameObject child = newObj.transform.GetChild(i).gameObject;
                     child.GetComponent<MeshRenderer>().material = defaultMaterial;
-                    child.GetComponent<MeshRenderer>().material.color = new Color(defaultMaterial.color.r, defaultMaterial.color.g, defaultMaterial.color.b, 0.5f);
+                    child.GetComponent<MeshRenderer>().material.color = new Color(defaultMaterial.color.r, defaultMaterial.color.g, defaultMaterial.color.b, 0);
                 }
             }
         }

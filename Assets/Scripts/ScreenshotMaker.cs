@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScreenshotMaker : MonoBehaviour
 {
     public Camera myCamera;
+    public GameObject canvas;
     private bool takeScreenShotOnNextFrame;
     int width;
     int height;
@@ -21,12 +22,14 @@ public class ScreenshotMaker : MonoBehaviour
             byte[] byteArray = myCamRenderResult.EncodeToPNG();
 
             ScreenshotUploader.UploadScreenshot(directoryPath, byteArray);
+            canvas.SetActive(true);
             takeScreenShotOnNextFrame = false;
         }
     }
 
     public void TakeScreenShot()
     {
+        canvas.SetActive(false);
         width = Screen.width;
         height = Screen.height;
         takeScreenShotOnNextFrame = true;
