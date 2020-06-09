@@ -5,11 +5,11 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
-public class ModelUploader
+public class ModelDownloader
 { 
     private static string[] possibleExtensions = { ".obj", ".FBX", ".3ds" };
 
-    public static List<ModelObject> UploadModels(string directoryPath,Transform positionOfModel, Transform parentOfmodels, Material defaultMaterial)
+    public static List<ModelObject> DownloadModels(string directoryPath,Transform positionOfModel, Transform parentOfmodels, Material defaultMaterial)
     {
         
         List<ModelObject> listOfModels = new List<ModelObject>();

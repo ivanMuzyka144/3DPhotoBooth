@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModelObject : MonoBehaviour
 {
-    private float moveSpeed=3f;
+    private float moveSpeed=2f;
     private float alphaSpeed = 2f;
     private float currentAlpha = 0;
 
@@ -38,7 +38,7 @@ public class ModelObject : MonoBehaviour
     {
         if (canAnimate)
         {
-            if (Vector3.Distance(transform.position, targerPoint.position) > 0.1f || Mathf.Abs(currentAlpha - targetAlpha) > 0.01f)
+            if (Vector3.Distance(transform.position, targerPoint.position) > 0.15f || Mathf.Abs(currentAlpha - targetAlpha) > 0.1f)
             {
                 if (currentAlpha > targetAlpha)
                 {
@@ -53,9 +53,9 @@ public class ModelObject : MonoBehaviour
             }
             else
             {
-                if (isHiding)
+                if (!isHiding)
                 {
-                    ModelManager.Instance.buttons.SetActive(true);
+                    modelManager.buttons.SetActive(true);
                 }
                 canAnimate = false;
             }

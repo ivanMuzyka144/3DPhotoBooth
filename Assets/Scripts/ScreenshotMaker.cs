@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenshotHandler : MonoBehaviour
+public class ScreenshotMaker : MonoBehaviour
 {
     public Camera myCamera;
     private bool takeScreenShotOnNextFrame;
     int width;
     int height;
 
+    private string directoryPath = "Assets/Output/";
     private void OnPostRender()
     {
         if (takeScreenShotOnNextFrame)
@@ -18,8 +19,8 @@ public class ScreenshotHandler : MonoBehaviour
             myCamRenderResult.ReadPixels(rect, 0, 0);
 
             byte[] byteArray = myCamRenderResult.EncodeToPNG();
-            
-            System.IO.File.WriteAllBytes("Assets/Output" + "/ScreenShot.png", byteArray);
+
+            ScreenshotUploader.UploadScreenshot(directoryPath, byteArray);
             takeScreenShotOnNextFrame = false;
         }
     }

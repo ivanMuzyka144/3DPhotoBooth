@@ -13,13 +13,12 @@ public class ModelManager : MonoBehaviour
     public Transform rightPoint;
 
     public GameObject buttons;
-    public bool isFirstObjEnd;
-    public bool isSecondObjEnd;
+    public bool clearOutputFolder;
 
     private int currentIndex;
     private List<ModelObject> models = new List<ModelObject>();
-    private string directoryPath = "Assets/Input/";
-
+    private string inputDirectoryPath = "Assets/Input/";
+    private string outputDirectoryPath = "Assets/Output/";
     private void Awake()
     {
         if (Instance == null)
@@ -27,18 +26,18 @@ public class ModelManager : MonoBehaviour
     }
     void Start()
     {
-        models = ModelUploader.UploadModels(directoryPath, rightPoint, parentOfmodels, defaultMaterial);
+        models = ModelDownloader.DownloadModels(inputDirectoryPath, rightPoint, parentOfmodels, defaultMaterial);
+        if (clearOutputFolder)
+            ScreenshotUploader.ClearFolder(outputDirectoryPath);
         currentIndex = 0;
         models[currentIndex].ShowModelTo(centerPoint);
     }
 
     public void ShowNext()
     {
-        if(currentIndex< models.Count - 1 )//&& isFirstObjEnd & isSecondObjEnd)
+        if(currentIndex< models.Count - 1 )
         {
             buttons.SetActive(false);
-            isFirstObjEnd = false;
-            isSecondObjEnd = false;
             models[currentIndex].HideModelTo(leftPoint);
             currentIndex++;
             models[currentIndex].ShowModelTo(centerPoint);
@@ -47,11 +46,9 @@ public class ModelManager : MonoBehaviour
 
     public void ShowPrevious()
     {
-        if (currentIndex > 0)// && isFirstObjEnd && isSecondObjEnd)
+        if (currentIndex > 0)
         {
             buttons.SetActive(false);
-            isFirstObjEnd = false;
-            isSecondObjEnd = false;
             models[currentIndex].HideModelTo(rightPoint);
             currentIndex--;
             models[currentIndex].ShowModelTo(centerPoint);
