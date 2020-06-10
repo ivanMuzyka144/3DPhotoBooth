@@ -1,29 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraOrbit : MonoBehaviour
 {
 
-    protected Transform _XForm_Camera;
-    protected Transform _XForm_Parent;
+    private Transform сamera;
+    private Transform parent;
 
-    protected Vector3 _LocalRotation;
-    protected float _CameraDistance = 3f;
+    private Vector3 localRotation;
+    private float cameraDistance = 3f;
 
-    public float MouseSensitivity = 4f;
-    public float ScrollSensitvity = 2f;
-    public float OrbitDampening = 10f;
-    public float ScrollDampening = 6f;
+    private float mouseSensitivity = 4f;
+    private float scrollSensitvity = 2f;
+    private float orbitDampening = 10f;
+    private float scrollDampening = 6f;
 
-    public bool cameraEnable;
+    private bool cameraEnable;
     private bool isMousePressed;
+    
 
-    // Use this for initialization
     void Start()
     {
-        this._XForm_Camera = this.transform;
-        this._XForm_Parent = this.transform.parent;
+        сamera = transform;
+        parent = transform.parent;
     }
 
     public void SwitchCameraEnable(bool enable)
@@ -45,36 +43,30 @@ public class CameraOrbit : MonoBehaviour
         {
             if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             {
-                _LocalRotation.x += Input.GetAxis("Mouse X") * MouseSensitivity;
-                _LocalRotation.y += Input.GetAxis("Mouse Y") * MouseSensitivity;
+                localRotation.x += Input.GetAxis("Mouse X") * mouseSensitivity;
+                localRotation.y += Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-                //Clamp the y Rotation to horizon and not flipping over at the top
-                if (_LocalRotation.y < 0f)
-                    _LocalRotation.y = 0f;
-                else if (_LocalRotation.y > 90f)
-                    _LocalRotation.y = 90f;
+                if (localRotation.y < 0f)
+                    localRotation.y = 0f;
+                else if (localRotation.y > 90f)
+                    localRotation.y = 90f;
             }
-            //Zooming Input from our Mouse Scroll Wheel
             
-            //Actual Camera Rig Transformations
-            Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
-            this._XForm_Parent.rotation = Quaternion.Lerp(this._XForm_Parent.rotation, QT, Time.deltaTime * OrbitDampening);
+            Quaternion QT = Quaternion.Euler(localRotation.y, localRotation.x, 0);
+            parent.rotation = Quaternion.Lerp(parent.rotation, QT, Time.deltaTime * orbitDampening);
 
         }
 
         if (cameraEnable &&  Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
-            float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitvity;
-
-            ScrollAmount *= (this._CameraDistance * 0.3f);
-
-            this._CameraDistance += ScrollAmount * -1f;
-
-            this._CameraDistance = Mathf.Clamp(this._CameraDistance, 1.5f, 100f);
+            float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * scrollSensitvity;
+            ScrollAmount *= (cameraDistance * 0.3f);
+            cameraDistance += ScrollAmount * -1f;
+            cameraDistance = Mathf.Clamp(cameraDistance, 1.5f, 100f);
         }
-        if (this._XForm_Camera.localPosition.z != this._CameraDistance * -1f)
+        if (сamera.localPosition.z != cameraDistance * -1f)
         {
-            this._XForm_Camera.localPosition = new Vector3(0f, 0f, Mathf.Lerp(this._XForm_Camera.localPosition.z, this._CameraDistance * -1f, Time.deltaTime * ScrollDampening));
+            сamera.localPosition = new Vector3(0f, 0f, Mathf.Lerp(сamera.localPosition.z, cameraDistance * -1f, Time.deltaTime * scrollDampening));
         }
     }
 }
