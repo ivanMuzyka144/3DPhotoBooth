@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Position : MonoBehaviour
+public class Scale : MonoBehaviour
 {
     public Slider sliderX;
     public Slider sliderY;
@@ -31,13 +31,13 @@ public class Position : MonoBehaviour
             }
             float valueX = sliderX.value;
             inputFieldX.text = valueX + "";
-            currentModel.transform.localPosition = new Vector3(valueX,currentModel.transform.localPosition.y, currentModel.transform.localPosition.z);
+            currentModel.transform.localScale = new Vector3(valueX,currentModel.transform.localScale.y, currentModel.transform.localScale.z);
             float valueY = sliderY.value;
             inputFieldY.text = valueY + "";
-            currentModel.transform.localPosition = new Vector3(currentModel.transform.localPosition.x, valueY, currentModel.transform.localPosition.z);
+            currentModel.transform.localScale = new Vector3(currentModel.transform.localScale.x, valueY, currentModel.transform.localScale.z);
             float valueZ = sliderZ.value;
             inputFieldZ.text = valueZ + "";
-            currentModel.transform.localPosition = new Vector3(currentModel.transform.localPosition.x, currentModel.transform.localPosition.y, valueZ);
+            currentModel.transform.localScale = new Vector3(currentModel.transform.localScale.x, currentModel.transform.localScale.y, valueZ);
         }
 
     }

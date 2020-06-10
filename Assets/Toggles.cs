@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Toggles : MonoBehaviour
@@ -9,6 +7,7 @@ public class Toggles : MonoBehaviour
     public Toggle togggle2;
     public Toggle togggle3;
     public Toggle togggle4;
+    public GameObject buttons;
     void Start()
     {
         togggle1.onValueChanged.AddListener((value) => { ChangeOtherToggles1(value); });
@@ -24,6 +23,7 @@ public class Toggles : MonoBehaviour
             togggle2.isOn = false;
             togggle3.isOn = false;
             togggle4.isOn = false;
+            buttons.SetActive(true);
         }
     }
     void ChangeOtherToggles2(bool value)
@@ -33,6 +33,7 @@ public class Toggles : MonoBehaviour
             togggle1.isOn = false;
             togggle3.isOn = false;
             togggle4.isOn = false;
+            buttons.SetActive(false);
         }
     }
     void ChangeOtherToggles3(bool value)
@@ -42,6 +43,7 @@ public class Toggles : MonoBehaviour
             togggle1.isOn = false;
             togggle2.isOn = false;
             togggle4.isOn = false;
+            buttons.SetActive(false);
         }
     }
     void ChangeOtherToggles4(bool value)
@@ -51,6 +53,7 @@ public class Toggles : MonoBehaviour
             togggle1.isOn = false;
             togggle2.isOn = false;
             togggle3.isOn = false;
+            buttons.SetActive(false);
         }
     }
 }

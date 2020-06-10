@@ -62,7 +62,7 @@ public class CameraOrbit : MonoBehaviour
 
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
+        if (cameraEnable &&  Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             float ScrollAmount = Input.GetAxis("Mouse ScrollWheel") * ScrollSensitvity;
 

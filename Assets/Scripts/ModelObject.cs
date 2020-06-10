@@ -60,6 +60,10 @@ public class ModelObject : MonoBehaviour
                 {
                     modelManager.buttons.SetActive(true);
                 }
+                else
+                {
+                    ClearObject();
+                }
                 isAnimating = false;
             }
         }
@@ -74,5 +78,9 @@ public class ModelObject : MonoBehaviour
             child.GetComponent<MeshRenderer>().material.color = new Color(childColor.r, childColor.g, childColor.b, alphaValue);
         }
     }
-
+    private void ClearObject()
+    {
+        transform.localRotation =  Quaternion.EulerAngles(0, 0, 0);
+        transform.localScale = new Vector3(1,1,1);
+    }
 }
