@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,10 +22,15 @@ public class MainManager : MonoBehaviour
     private ScaleManager scaleManager;
 
     private string inputDirectoryPath = "Assets/Resources/";
-    private string outputDirectoryPath = "Assets/Output/";
+    private string outputDirectoryPath = Application.streamingAssetsPath + "/Output/";
 
     private void Awake()
     {
+        
+        Directory.CreateDirectory(Application.streamingAssetsPath + "/Output");
+        Directory.CreateDirectory(Application.streamingAssetsPath + "/Input");
+        /*string firstPath= Application.streamingAssetsPath + "/Input/box.FBX";
+        File.Copy(firstPath, inputDirectoryPath+"box.FBX");*/
         if (Instance == null)
             Instance = this;
     }

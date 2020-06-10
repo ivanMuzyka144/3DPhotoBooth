@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Linq;
@@ -10,7 +9,7 @@ public class ModelDownloader
 
     public static List<ModelObject> DownloadModels(string directoryPath,Transform positionOfModel, Transform parentOfmodels, Material defaultMaterial)
     {
-        
+        //DownloadToResouces();
         List<ModelObject> listOfModels = new List<ModelObject>();
         DirectoryInfo info = new DirectoryInfo(directoryPath);
         FileInfo[] fileInfo = info.GetFiles();
@@ -32,5 +31,15 @@ public class ModelDownloader
             }
         }
         return listOfModels;
+    }
+
+    private static void DownloadToResouces()
+    {
+        DirectoryInfo info = new DirectoryInfo(Application.streamingAssetsPath + "/Input");
+        FileInfo[] fileInfo = info.GetFiles();
+        foreach (FileInfo file in fileInfo)
+        {
+            File.Copy(Application.streamingAssetsPath + "/Input/" + file.Name, "Assets/Resources/new" + file.Name);
+        }
     }
 }
