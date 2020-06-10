@@ -5,66 +5,52 @@ public class ModelManager : MonoBehaviour
 {
     public static ModelManager Instance { get; private set; }
 
-    public RotationTest rotationTester;
-    public Position positionTester;
-    public Scale scaleTester;
-    public Transform parentOfmodels;
-    public Material defaultMaterial;
-
     public Transform leftPoint;
     public Transform centerPoint;
     public Transform rightPoint;
 
-    public GameObject buttons;
-    public bool clearOutputFolder;
-
     private int currentIndex;
     private List<ModelObject> models = new List<ModelObject>();
-    private string inputDirectoryPath = "Assets/Input/";
-    private string outputDirectoryPath = "Assets/Output/";
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
     }
-    void Start()
+    
+
+    public void SetModels(List<ModelObject> newModels)
     {
-        models = ModelDownloader.DownloadModels(inputDirectoryPath, rightPoint, parentOfmodels, defaultMaterial);
-        if (clearOutputFolder)
-            ScreenshotUploader.ClearFolder(outputDirectoryPath);
+        models = newModels;
         currentIndex = 0;
         models[currentIndex].ShowModelTo(centerPoint);
-        rotationTester.SetCurrentModel(models[currentIndex].gameObject);
-        positionTester.SetCurrentModel(models[currentIndex].gameObject);
-        scaleTester.SetCurrentModel(models[currentIndex].gameObject);
     }
 
-    public void ShowNext()
+    public ModelObject GetCurrentModelObject()
+    {
+        return models[currentIndex];
+    }
+    public bool ShowNext()
     {
         if(currentIndex< models.Count - 1 )
         {
-            buttons.SetActive(false);
             models[currentIndex].HideModelTo(leftPoint);
             currentIndex++;
             models[currentIndex].ShowModelTo(centerPoint);
-            rotationTester.SetCurrentModel(models[currentIndex].gameObject);
-            positionTester.SetCurrentModel(models[currentIndex].gameObject);
-            scaleTester.SetCurrentModel(models[currentIndex].gameObject);
+            return true;
         }
+        return false;
     }
 
-    public void ShowPrevious()
+    public bool ShowPrevious()
     {
         if (currentIndex > 0)
         {
-            buttons.SetActive(false);
             models[currentIndex].HideModelTo(rightPoint);
             currentIndex--;
             models[currentIndex].ShowModelTo(centerPoint);
-            rotationTester.SetCurrentModel(models[currentIndex].gameObject);
-            positionTester.SetCurrentModel(models[currentIndex].gameObject);
-            scaleTester.SetCurrentModel(models[currentIndex].gameObject);
+            return true;
         }
+        return false;
     }
 
     

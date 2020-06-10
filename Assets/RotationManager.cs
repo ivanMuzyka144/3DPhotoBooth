@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class RotationTest : MonoBehaviour
+public class RotationManager : MonoBehaviour
 {
+    public static RotationManager Instance { get; private set; }
+
     public Slider sliderX;
     public Slider sliderY;
     public Slider sliderZ;
     private GameObject currentModel;
 
     private float rotationSpeed = 7;
-    public void Start()
+    private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
     }
     public void SetCurrentModel(GameObject model)
     {
         currentModel = model;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (currentModel != null)

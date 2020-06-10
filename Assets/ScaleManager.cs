@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Scale : MonoBehaviour
+public class ScaleManager : MonoBehaviour
 {
+    public static ScaleManager Instance { get; private set; }
+
     public Slider sliderX;
     public Slider sliderY;
     public Slider sliderZ;
@@ -15,20 +15,22 @@ public class Scale : MonoBehaviour
     public bool isParametrSet;
     private GameObject currentModel;
 
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
     public void SetCurrentModel(GameObject model)
     {
         currentModel = model;
-        
+        SetParametrs();
+
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (currentModel != null && !currentModel.GetComponent<ModelObject>().isAnimating && toggle.isOn)
         {
-            if (!isParametrSet)
-            {
-                SetParametrs();
-            }
             float valueX = sliderX.value;
             inputFieldX.text = valueX + "";
             currentModel.transform.localScale = new Vector3(valueX,currentModel.transform.localScale.y, currentModel.transform.localScale.z);
@@ -43,18 +45,11 @@ public class Scale : MonoBehaviour
     }
     public void SetParametrs()
     {
-        sliderX.value = currentModel.transform.position.x;
-        sliderY.value = currentModel.transform.position.y;
-        sliderZ.value = currentModel.transform.position.z;
-        inputFieldX.text = currentModel.transform.position.x + "";
-        inputFieldY.text = currentModel.transform.position.y + "";
-        inputFieldZ.text = currentModel.transform.position.z + "";
-        isParametrSet = true;
-    }
-
-    public void Disable(bool value)
-    {
-        if (value == false)
-            isParametrSet = false;
+        sliderX.value = 1;
+        sliderY.value = 1;
+        sliderZ.value = 1;
+        inputFieldX.text = 1 + "";
+        inputFieldY.text = 1 + "";
+        inputFieldZ.text = 1 + "";
     }
 }

@@ -12,10 +12,10 @@ public class ModelObject : MonoBehaviour
     private bool isHiding;
     private Transform targerPoint;
     private float targetAlpha;
-    private ModelManager modelManager;
+    private MainManager mainManager;
     private void Start()
     {
-        modelManager = ModelManager.Instance;
+        mainManager = MainManager.Instance;
     }
    
     public void HideModelTo(Transform point)
@@ -40,14 +40,7 @@ public class ModelObject : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, targerPoint.position) > 0.1f || Mathf.Abs(currentAlpha - targetAlpha) > 0.1f)
             {
-                if (currentAlpha > targetAlpha)
-                {
-                    currentAlpha -= alphaSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    currentAlpha += alphaSpeed * Time.deltaTime;
-                }
+                ChangeAlpha();
                 SetAlphaToChildren(currentAlpha);
                 transform.position = Vector3.Lerp(transform.position, targerPoint.position, moveSpeed * Time.deltaTime);
             }
@@ -58,7 +51,7 @@ public class ModelObject : MonoBehaviour
 
                 if (!isHiding)
                 {
-                    modelManager.buttons.SetActive(true);
+                    mainManager.EnableButtons();
                 }
                 else
                 {
@@ -66,6 +59,18 @@ public class ModelObject : MonoBehaviour
                 }
                 isAnimating = false;
             }
+        }
+    }
+
+    private void ChangeAlpha()
+    {
+        if (currentAlpha > targetAlpha)
+        {
+            currentAlpha -= alphaSpeed * Time.deltaTime;
+        }
+        else
+        {
+            currentAlpha += alphaSpeed * Time.deltaTime;
         }
     }
 
@@ -80,7 +85,7 @@ public class ModelObject : MonoBehaviour
     }
     private void ClearObject()
     {
-        transform.localRotation =  Quaternion.EulerAngles(0, 0, 0);
+        transform.localRotation =  Quaternion.Euler(0, 0, 0);
         transform.localScale = new Vector3(1,1,1);
     }
 }

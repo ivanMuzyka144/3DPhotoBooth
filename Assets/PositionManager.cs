@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Position : MonoBehaviour
+public class PositionManager : MonoBehaviour
 {
+    public static PositionManager Instance { get; private set; }
+
     public Slider sliderX;
     public Slider sliderY;
     public Slider sliderZ;
@@ -14,21 +14,20 @@ public class Position : MonoBehaviour
     public Toggle toggle;
     public bool isParametrSet;
     private GameObject currentModel;
-
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
     public void SetCurrentModel(GameObject model)
     {
         currentModel = model;
-        
+        SetParametrs();
     }
-    // Update is called once per frame
     void Update()
     {
         if (currentModel != null && !currentModel.GetComponent<ModelObject>().isAnimating && toggle.isOn)
         {
-            if (!isParametrSet)
-            {
-                SetParametrs();
-            }
             float valueX = sliderX.value;
             inputFieldX.text = valueX + "";
             currentModel.transform.localPosition = new Vector3(valueX,currentModel.transform.localPosition.y, currentModel.transform.localPosition.z);
@@ -43,18 +42,12 @@ public class Position : MonoBehaviour
     }
     public void SetParametrs()
     {
-        sliderX.value = currentModel.transform.position.x;
-        sliderY.value = currentModel.transform.position.y;
-        sliderZ.value = currentModel.transform.position.z;
-        inputFieldX.text = currentModel.transform.position.x + "";
-        inputFieldY.text = currentModel.transform.position.y + "";
-        inputFieldZ.text = currentModel.transform.position.z + "";
-        isParametrSet = true;
+        sliderX.value = 0;
+        sliderY.value = 0;
+        sliderZ.value = 0;
+        inputFieldX.text = 0 + "";
+        inputFieldY.text = 0 + "";
+        inputFieldZ.text = 0 + "";
     }
 
-    public void Disable(bool value)
-    {
-        if (value == false)
-            isParametrSet = false;
-    }
 }
