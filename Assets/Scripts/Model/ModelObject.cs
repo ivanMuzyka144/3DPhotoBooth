@@ -41,13 +41,14 @@ public class ModelObject : MonoBehaviour
             if (Vector3.Distance(transform.position, targerPoint.position) > 0.05f || Mathf.Abs(currentAlpha - targetAlpha) > 0.1f)
             {
                 ChangeAlpha();
-                SetAlphaToChildren(currentAlpha);
+                Color modelColor = GetComponent<MeshRenderer>().material.color;
+                GetComponent<MeshRenderer>().material.color = new Color(modelColor.r, modelColor.g, modelColor.b, currentAlpha);
                 transform.position = Vector3.Lerp(transform.position, targerPoint.position, moveSpeed * Time.deltaTime);
             }
             else
             {
-                SetAlphaToChildren(targetAlpha);
-
+                Color modelColor = GetComponent<MeshRenderer>().material.color;
+                GetComponent<MeshRenderer>().material.color = new Color(modelColor.r, modelColor.g, modelColor.b, targetAlpha);
                 if (!isHiding)
                 {
                     mainManager.EnableButtons();
@@ -70,16 +71,6 @@ public class ModelObject : MonoBehaviour
         else
         {
             currentAlpha += alphaSpeed * Time.deltaTime;
-        }
-    }
-
-    private void SetAlphaToChildren(float alphaValue)
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GameObject child = transform.GetChild(i).gameObject;
-            Color childColor = child.GetComponent<MeshRenderer>().material.color;
-            child.GetComponent<MeshRenderer>().material.color = new Color(childColor.r, childColor.g, childColor.b, alphaValue);
         }
     }
     private void ClearObject()

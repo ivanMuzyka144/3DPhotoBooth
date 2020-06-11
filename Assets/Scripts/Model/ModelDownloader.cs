@@ -25,7 +25,7 @@ public class ModelDownloader
                 newObj.AddComponent<MeshRenderer>();
                 newObj.GetComponent<MeshFilter>().mesh = myMesh;
                 newObj.GetComponent<MeshRenderer>().material = defaultMaterial;
-                //newObj.GetComponent<MeshRenderer>().material.color = new Color(defaultMaterial.color.r, defaultMaterial.color.g, defaultMaterial.color.b, 0);
+                newObj.GetComponent<MeshRenderer>().material.color = new Color(defaultMaterial.color.r, defaultMaterial.color.g, defaultMaterial.color.b, 0);
                 newObj.transform.position = positionOfModel.position;
                 newObj.transform.parent = parentOfmodels;
                 newObj.AddComponent<ModelObject>();
@@ -34,15 +34,5 @@ public class ModelDownloader
             }
         }
         return listOfModels;
-    }
-
-    private static void DownloadToResouces()
-    {
-        DirectoryInfo info = new DirectoryInfo(Application.streamingAssetsPath + "/Input");
-        FileInfo[] fileInfo = info.GetFiles();
-        foreach (FileInfo file in fileInfo)
-        {
-            File.Copy(Application.streamingAssetsPath + "/Input/" + file.Name, "Assets/Resources/new" + file.Name);
-        }
     }
 }

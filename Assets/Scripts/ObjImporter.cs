@@ -2,6 +2,7 @@
  * the final arrays will be, and then uses standard arrays for everything (as opposed to ArrayLists
  * or any other fancy things). 
  */
+//Source: http://wiki.unity3d.com/index.php/ObjImporter
 
 using UnityEngine;
 using System.Collections;
