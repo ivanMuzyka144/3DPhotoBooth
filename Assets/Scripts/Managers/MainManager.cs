@@ -21,7 +21,8 @@ public class MainManager : MonoBehaviour
     private PositionManager positionManager;
     private ScaleManager scaleManager;
 
-    private string inputDirectoryPath = "Assets/Resources/";
+    //private string inputDirectoryPath = "Assets/Resources/";
+    private string inputDirectoryPath = Application.streamingAssetsPath + "/Input/";
     private string outputDirectoryPath = Application.streamingAssetsPath + "/Output/";
 
     private void Awake()

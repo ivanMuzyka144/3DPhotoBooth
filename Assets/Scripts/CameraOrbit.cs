@@ -7,7 +7,7 @@ public class CameraOrbit : MonoBehaviour
     private Transform parent;
 
     private Vector3 localRotation;
-    private float cameraDistance = 3f;
+    private float cameraDistance = 50f;
 
     private float mouseSensitivity = 4f;
     private float scrollSensitvity = 2f;
